@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, Route } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
-import Profile from "./Profile";
+import Profiles from "./Profiles";
+import HistorySample from "./HistorySample";
 
 function App() {
   return (
@@ -15,16 +16,27 @@ function App() {
           <Link to="/about">About</Link>
         </li>
         <li>
-          <Link to="/profile/bgyoons">bgyoons Profile</Link>
+          <Link to="/profiles">Profile</Link>
         </li>
         <li>
-          <Link to="/profile/ran">ran Profile</Link>
+          <Link to="/history">History Example</Link>
         </li>
       </ul>
       <hr />
-      <Route path="/" component={Home} exact={true} />
-      <Route path={["/about", "/info"]} component={About} />
-      <Route path="/profile/:username" component={Profile} exact={true} />
+      <Switch>
+        <Route path="/" component={Home} exact={true} />
+        <Route path={["/about", "/info"]} component={About} />
+        <Route path="/profiles" component={Profiles} />
+        <Route path="/history" component={HistorySample} />
+        <Route
+          render={({ location }) => (
+            <div>
+              <h2>Not Page</h2>
+              <p>{location.pathname}</p>
+            </div>
+          )}
+        />
+      </Switch>
     </div>
   );
 }
